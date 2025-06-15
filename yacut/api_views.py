@@ -6,7 +6,7 @@ from .models import URLMap
 from .error_handlers import InvalidAPIUsage
 from .utils import get_unique_short_id
 from .constants import (SHORT_LINK_REGEX, REQUEST_BODY_IS_MISSING,
-                        REQUIRED_FIELD, INVALID_NAME, NOT_FOUND, 
+                        REQUIRED_FIELD, INVALID_NAME, NOT_FOUND,
                         SHORT_LINK_EXIST)
 
 
