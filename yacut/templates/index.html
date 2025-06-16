@@ -18,7 +18,6 @@
             <div>
               <div>
                 {{ form.original_link(class="form-control form-control-lg py-2 mb-3", placeholder=form.original_link.label.text)}}
-                {% if form.original_link.errors %}
                 <p>
                   <span style="color:red">
                     {% for error in form.original_link.errors %}
@@ -26,11 +25,9 @@
                     {% endfor %}
                   </span>
                 </p>
-                {% endif %}
               </div>
               <div>
                 {{ form.custom_id(class="form-control form-control-lg py-2 mb-3", placeholder=form.custom_id.label.text)}}
-                {% if form.custom_id.errors %}
                 <p>
                   <span style="color:red">
                     {% for error in form.custom_id.errors %}
@@ -38,7 +35,6 @@
                     {% endfor %}
                   </span>
                 </p>
-                {% endif %}
               </div>
 
               {{ form.submit(class="btn btn-primary") }}
