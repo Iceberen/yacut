@@ -30,3 +30,13 @@ class InvalidAPIUsage(Exception):
 @app.errorhandler(InvalidAPIUsage)
 def invalid_api_usage(error):
     return jsonify(error.to_dict()), error.status_code
+
+
+class InvalidShortID(Exception):
+    """Исключение при некорректном кастомном short_id."""
+    pass
+
+
+class ShortIDAlreadyExists(Exception):
+    """Исключение при попытке создать существующий short_id."""
+    pass

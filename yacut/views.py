@@ -4,7 +4,8 @@ from . import app
 from .forms import URLMapForm
 from .models import URLMap
 from .services import create_short_link
-from .error_handlers import InvalidAPIUsage
+from .error_handlers import InvalidShortID, ShortIDAlreadyExists
+from .constants import INVALID_NAME, SHORT_LINK_EXIST
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -19,8 +20,10 @@ def index():
                                  _external=True)
             message = f'<a href="{short_link}">{short_link}</a>'
             flash(message)
-        except InvalidAPIUsage as e:
-            flash(e.message)
+        except InvalidShortID:
+            flash(INVALID_NAME)
+        except ShortIDAlreadyExists:
+            flash(SHORT_LINK_EXIST)
 
     return render_template('index.html', form=form)
 

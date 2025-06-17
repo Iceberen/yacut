@@ -2,9 +2,11 @@ from flask import jsonify, request, url_for
 
 from . import app
 from .models import URLMap
-from .error_handlers import InvalidAPIUsage
+from .error_handlers import (InvalidAPIUsage, InvalidShortID,
+                             ShortIDAlreadyExists)
 from .constants import REQUEST_BODY_IS_MISSING, REQUIRED_FIELD, NOT_FOUND
 from .services import create_short_link
+from .constants import INVALID_NAME, SHORT_LINK_EXIST
 
 
 @app.route('/api/id/', methods=['POST'])
@@ -17,7 +19,12 @@ def add_url():
 
     original_url = data['url']
     custom_id = data.get('custom_id')
-    urlmap = create_short_link(original_url, custom_id)
+    try:
+        urlmap = create_short_link(original_url, custom_id)
+    except InvalidShortID:
+        raise InvalidAPIUsage(INVALID_NAME)
+    except ShortIDAlreadyExists:
+        raise InvalidAPIUsage(SHORT_LINK_EXIST)
     short_link = url_for('to_original_view', short_id=urlmap.short,
                          _external=True)
     return (jsonify({'url': urlmap.original, 'short_link': short_link}), 201)
